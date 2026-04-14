@@ -1,14 +1,14 @@
 WITH DailyPlantMetrics AS (
     SELECT 
-        ProductionDate AS Date,
+        CAST(Timestamp AS DATE) AS Date,
         Plant,
         SUM(DefectCount) AS DailyDefectCount,
        
-        CAST(SUM(DefectCount) AS FLOAT) / NULLIF(SUM(TotalProductionVolume), 0) AS DailyDefectRate
+        CAST(SUM(DefectCount) AS FLOAT) / NULLIF(SUM(ProductionUnits), 0) AS DailyDefectRate
     FROM 
-        YourTableName
+        "QUALITY & DEFECT REDUCTION"
     GROUP BY 
-        ProductionDate, 
+        CAST(Timestamp AS DATE), 
         Plant
 )
 SELECT 
